@@ -17,4 +17,12 @@
 		return sendMail($to, $subject, $message);
 	}
 
+	function sendWelcomeMail($to, $name)
+	{
+		$subject = "Welcome | VMONSTERS";
+		$message = "Welcome to Vmonsters.<br>I would like to welcome our game and say that we are doing our best to make it better every day.<br><br>I already apologize for any bugs you may face, the game is still in the testing phase and thank you for helping us test it.<br><br>Welcome to Kokeen!";
+
+		return sendMail($to, $subject, $message);
+	}
+
 ?>
