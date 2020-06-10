@@ -1,0 +1,57 @@
+<?
+
+	ini_set("memory_limit","500M");
+	header('Content-type: application/json');
+
+	include "../../class/pretty_json.php";
+	include("../../class/connection.php");
+	include("../../class/database.php");
+
+	$data = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
+
+	$data["password"] = md5($password);
+	$data["wallet"] = 3000;
+
+	$return = array();
+
+	$db = new Database();
+
+	$r = $db->select("vms_users", " WHERE email = '".$data["email"]."'");
+	$user = mysqli_fetch_array($r, MYSQLI_ASSOC);
+
+	if($user != null){
+		$return["success"] = false;
+		$return["message"] = "This email is already being used";
+	}else{
+		$userId = $db->insert("vms_users", $data);
+
+		if ($userId > 0) {
+			$r = $db->sql("SELECT COUNT(id) as count FROM vms_crests");
+			$crests = mysqli_fetch_array($r, MYSQLI_ASSOC);
+
+			$crestId = rand(1, $crests["count"]);
+
+			$users_has_crests = array();
+			$users_has_crests["user"] = $userId;
+			$users_has_crests["crest"] = $crestId;
+
+			$uhcId = $db->insert("vms_users_has_crests", $users_has_crests);
+
+			if($uhcId > 0){
+				$return["success"] = true;
+				$return["message"] = "User created with success";
+			}else{
+				$db->delete("vms_users", $userId);
+				$return["success"] = false;
+				$return["message"] = "An error occurred";
+			}
+		} else {
+			$return["success"] = false;
+			$return["message"] = "An error occurred";
+		}
+	}
+
+
+	print_r(pretty_json(json_encode($return)));
+
+?>
