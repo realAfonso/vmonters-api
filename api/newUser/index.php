@@ -3,9 +3,10 @@
 	ini_set("memory_limit","500M");
 	header('Content-type: application/json');
 
-	include "../../class/pretty_json.php";
+	include("../../class/pretty_json.php");
 	include("../../class/connection.php");
 	include("../../class/database.php");
+	include("../../modules/_mail_module.php");
 
 	$data = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
 
@@ -38,8 +39,33 @@
 			$uhcId = $db->insert("vms_users_has_crests", $users_has_crests);
 
 			if($uhcId > 0){
-				$return["success"] = true;
-				$return["message"] = "User created with success";
+
+				$hash = md5($userId);
+				$hash = md5($hash);
+
+				$user_has_hash = array();
+				$user_has_hash["user"] = $userId;
+				$user_has_hash["hash"] = $hash;
+
+				$uhhId = $db->insert("vms_user_has_hash", $user_has_hash);
+
+				if($uhhId > 0){
+					if(sendVerificationMail($data["email"], $hash)){
+						$return["success"] = true;
+						$return["message"] = "User created with success, verify your email account";
+					}else{
+						$db->delete("vms_users", $userId);
+						$db->delete("vms_users_has_crests", $uhcId);
+						$return["success"] = false;
+						$return["message"] = "Verification email could not be sent, please try again";
+					}
+				}else{
+					$db->delete("vms_users", $userId);
+					$db->delete("vms_users_has_crests", $uhcId);
+					$return["success"] = false;
+					$return["message"] = "Verification hash could not be created, please try again";
+				}				
+
 			}else{
 				$db->delete("vms_users", $userId);
 				$return["success"] = false;
