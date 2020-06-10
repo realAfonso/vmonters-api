@@ -3,12 +3,12 @@
 	ini_set("memory_limit","500M");
 	header('Content-type: application/json');
 
-	include("../../class/pretty_json.php");
-	include("../../class/connection.php");
-	include("../../class/database.php");
-	include("../../modules/_mail_module.php");
+	include("../../../class/pretty_json.php");
+	include("../../../class/connection.php");
+	include("../../../class/database.php");
+	include("../../../modules/_mail_module.php");
 
-	$data = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
+	$data = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
 	$data["password"] = md5($password);
 	$data["wallet"] = 3000;
