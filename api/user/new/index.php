@@ -22,6 +22,7 @@
 
 	if($user != null){
 		$return["success"] = false;
+		$return["code"] = 001;
 		$return["message"] = "This email is already being used";
 	}else{
 		$userId = $db->insert("vms_users", $data);
@@ -52,27 +53,32 @@
 				if($uhhId > 0){
 					if(sendVerificationMail($data["email"], $hash)){
 						$return["success"] = true;
+						$return["code"] = 007;
 						$return["message"] = "User created with success, verify your email account";
 					}else{
 						$db->delete("vms_users", $userId);
 						$db->delete("vms_users_has_crests", $uhcId);
 						$return["success"] = false;
+						$return["code"] = 002;
 						$return["message"] = "Verification email could not be sent, please try again";
 					}
 				}else{
 					$db->delete("vms_users", $userId);
 					$db->delete("vms_users_has_crests", $uhcId);
 					$return["success"] = false;
+					$return["code"] = 003;
 					$return["message"] = "Verification hash could not be created, please try again";
 				}				
 
 			}else{
 				$db->delete("vms_users", $userId);
 				$return["success"] = false;
+				$return["code"] = 005;
 				$return["message"] = "An error occurred";
 			}
 		} else {
 			$return["success"] = false;
+			$return["code"] = 006;
 			$return["message"] = "An error occurred";
 		}
 	}

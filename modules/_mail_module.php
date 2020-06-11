@@ -20,7 +20,15 @@
 	function sendWelcomeMail($to, $name)
 	{
 		$subject = "Welcome | VMONSTERS";
-		$message = "Welcome to Vmonsters.<br>I would like to welcome our game and say that we are doing our best to make it better every day.<br><br>I already apologize for any bugs you may face, the game is still in the testing phase and thank you for helping us test it.<br><br>Welcome to Kokeen!";
+		$message = "Welcome to Vmonsters $name!<br>I would like to welcome our game and say that we are doing our best to make it better every day.<br><br>I already apologize for any bugs you may face, the game is still in the testing phase and thank you for helping us test it.<br><br>Welcome to Kokeen!";
+
+		return sendMail($to, $subject, $message);
+	}
+
+	function sendNewPasswordMail($to, $name, $newPass)
+	{
+		$subject = "Your new password | VMONSTERS";
+		$message = "Hello $name,<br>A new password has been requested for your Vmonsters account, this is your new password:<br><br><b>$newPass</b><br><br>You can exchange it using the profile menu within the Vmonsters app.";
 
 		return sendMail($to, $subject, $message);
 	}
