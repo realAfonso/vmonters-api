@@ -15,7 +15,7 @@
 
 	$db = new Database();
 
-	$r = $db->select("vms_users", " WHERE email = '".$data["email"]."'");
+	$r = $db->select("vms_users", " WHERE email = '".$data["email"]."' AND status = '1'");
 	$user = mysqli_fetch_array($r, MYSQLI_ASSOC);
 
 	if($user != null){
