@@ -10,7 +10,7 @@
 
 	$data = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
-	$data["password"] = md5($password);
+	$data["password"] = md5($data["password"]);
 	$data["wallet"] = 3000;
 
 	$return = array();
@@ -22,7 +22,7 @@
 
 	if($user != null){
 		$return["success"] = false;
-		$return["code"] = 001;
+		$return["code"] = 1;
 		$return["message"] = "This email is already being used";
 	}else{
 		$userId = $db->insert("vms_users", $data);
@@ -53,32 +53,32 @@
 				if($uhhId > 0){
 					if(sendVerificationMail($data["email"], $hash)){
 						$return["success"] = true;
-						$return["code"] = 007;
+						$return["code"] = 7;
 						$return["message"] = "User created with success, verify your email account";
 					}else{
 						$db->delete("vms_users", $userId);
 						$db->delete("vms_users_has_crests", $uhcId);
 						$return["success"] = false;
-						$return["code"] = 002;
+						$return["code"] = 2;
 						$return["message"] = "Verification email could not be sent, please try again";
 					}
 				}else{
 					$db->delete("vms_users", $userId);
 					$db->delete("vms_users_has_crests", $uhcId);
 					$return["success"] = false;
-					$return["code"] = 003;
+					$return["code"] = 3;
 					$return["message"] = "Verification hash could not be created, please try again";
 				}				
 
 			}else{
 				$db->delete("vms_users", $userId);
 				$return["success"] = false;
-				$return["code"] = 005;
+				$return["code"] = 5;
 				$return["message"] = "An error occurred";
 			}
 		} else {
 			$return["success"] = false;
-			$return["code"] = 006;
+			$return["code"] = 6;
 			$return["message"] = "An error occurred";
 		}
 	}

@@ -1,6 +1,6 @@
 <?
 
-	function createNewPassword($size = 8)
+	function createNewPassword($size = 5)
 	{
 		$lmin = 'abcdefghijklmnopqrstuvwxyz';
 		$lmai = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
@@ -13,7 +13,7 @@
 		$caracteres .= $lmin;
 		$caracteres .= $lmai;
 		$caracteres .= $num;
-		$caracteres .= $simb;
+		//$caracteres .= $simb;
 
 		$len = strlen($caracteres);
 		for ($n = 1; $n <= $size; $n++) {

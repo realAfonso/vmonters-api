@@ -2,7 +2,7 @@
 	class Database {
 		var $mysqli;
 
-		public function insert($table, $array) {
+		public function insert($table, $array, $showQuery=false) {
 			$conn = new Connection();
 			$mysqli = $conn->open();
 			$sql = "INSERT INTO $table (";
@@ -15,6 +15,7 @@
 			}
 			$sql .= ")";
 			$sql = str_replace(", )", ")", $sql);
+			if($showQuery) echo $sql;
 			$result = $mysqli->query($sql);
 			$lastId = $mysqli->insert_id;
 			$mysqli = $conn->close($mysqli);
@@ -26,7 +27,7 @@
 			}
 		}
 
-		public function update($table, $array, $target = "") {
+		public function update($table, $array, $target = "", $showQuery=false) {
 			$conn = new Connection();
 			$mysqli = $conn->open();
 			$id = $array["id"];
@@ -41,30 +42,34 @@
 				$sql .= "WHERE ".$target." = '".$array[$target]."'";
 			}
 			$sql = str_replace("', WHERE", "' WHERE", $sql);
+			if($showQuery) echo $sql;
 			$result = $mysqli->query($sql);
 			$mysqli = $conn->close($mysqli);
 			return $result;
 		}
 
-		public function select($table, $cond="") {
+		public function select($table, $cond="", $showQuery=false) {
 			$conn = new Connection();
 			$mysqli = $conn->open();
 			$sql = "SELECT * FROM $table ".$cond;
+			if($showQuery) echo $sql;
 			$result = $mysqli->query($sql);
 			$mysqli = $conn->close($mysqli);
 			return $result;
 		}
 
-		public function delete($table, $id) {
+		public function delete($table, $id, $showQuery=false) {
 			$conn = new Connection();
 			$mysqli = $conn->open();
 			$sql = "DELETE FROM $table WHERE id = '".$mysqli->real_escape_string($id)."'";
+			if($showQuery) echo $sql;
 			$result = $mysqli->query($sql);
 			$mysqli = $conn->close($mysqli);
 			return $result;
 		}
 
-		public function sql($sql) {
+		public function sql($sql, $showQuery=false) {
+			if($showQuery) echo $sql;
 			$conn = new Connection();
 			$mysqli = $conn->open();
 			$result = $mysqli->query($sql);
