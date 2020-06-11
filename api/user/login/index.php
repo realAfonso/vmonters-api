@@ -33,7 +33,8 @@
 		$return["crest"] = array();
 		$return["crest"]["name"] = $crest["name"];
 		$return["crest"]["icon"] = $crest["icon"];
-		$return["crest"]["color"] = $crest["color"];
+		$return["crest"]["colorLight"] = $crest["color_light"];
+		$return["crest"]["colorDark"] = $crest["color_dark"];
 	}
 
 
