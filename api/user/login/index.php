@@ -21,20 +21,25 @@
 		$return["success"] = false;
 		$return["code"] = 12;
 		$return["message"] = "Invalid email or password";
+		$return["response"] = null;
 	}else{
-		$return["id"] = $user["id"];
-		$return["name"] = $user["name"];
+
+		$return["success"] = true;
+		$return["response"] = array();
+
+		$return["response"]["id"] = $user["id"];
+		$return["response"]["name"] = $user["name"];
 
 		$crestId = $user["crest"];
 
 		$r = $db->select("vms_crests", " WHERE id = '$crestId'");
 		$crest = mysqli_fetch_array($r, MYSQLI_ASSOC);
 
-		$return["crest"] = array();
-		$return["crest"]["name"] = $crest["name"];
-		$return["crest"]["icon"] = $crest["icon"];
-		$return["crest"]["colorLight"] = $crest["color_light"];
-		$return["crest"]["colorDark"] = $crest["color_dark"];
+		$return["response"]["crest"] = array();
+		$return["response"]["crest"]["name"] = $crest["name"];
+		$return["response"]["crest"]["icon"] = $crest["icon"];
+		$return["response"]["crest"]["colorLight"] = $crest["color_light"];
+		$return["response"]["crest"]["colorDark"] = $crest["color_dark"];
 	}
 
 
