@@ -8,7 +8,7 @@
 	include("../../../class/database.php");
 	include("../../../modules/_mail_module.php");
 
-	$data = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+	$data = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
 
 	$data["password"] = md5($data["password"]);
 	$data["wallet"] = 3000;
