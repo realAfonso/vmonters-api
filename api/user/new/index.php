@@ -27,6 +27,12 @@
 	}else{
 		$userId = $db->insert("vms_users", $data);
 
+		$uha = array();
+		$uha["user"] = $userId;
+		$uha["avatar"] = "1";
+
+		$db->insert("vms_user_has_avatars", $uha);
+
 		if ($userId > 0) {
 			$r = $db->sql("SELECT COUNT(id) as count FROM vms_crests");
 			$crests = mysqli_fetch_array($r, MYSQLI_ASSOC);

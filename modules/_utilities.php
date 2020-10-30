@@ -23,4 +23,17 @@
 		return $retorno;
 	}
 
+	function getRandomRarity()
+	{
+		return getRarity(rand(0,100));
+	}
+
+	function getRarity($value)
+	{
+		if($value >= 1 && $value <= 5) return "ULTRARARE";
+		if($value >= 6 && $value <= 20) return "RARE";
+		if($value >= 21 && $value <= 50) return "UNCOMMON";
+		if($value >= 51 && $value <= 100) return "COMMON";
+	}
+
 ?>

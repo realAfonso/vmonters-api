@@ -3,26 +3,25 @@
 	ini_set("memory_limit","500M");
 	header('Content-type: application/json');
 
-	include_once("../../../class/pretty_json.php");
-	include_once("../../../class/connection.php");
-	include_once("../../../class/database.php");
-	include_once("../../../class/user.php");
+	include("../../../class/pretty_json.php");
+	include("../../../class/connection.php");
+	include("../../../class/database.php");
+	include("../../../class/user.php");
 
 	$data = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
 
 	$return = array();
 
-	$u = new User();
 	$db = new Database();
+	$u = new User();
 
-	$r = $db->select("vms_active_users", 
-		" WHERE email = '".$data["email"]."' AND password = '".md5($data["password"])."'");
+	$r = $db->select("vms_active_users", " WHERE id = '".$data["i"]."'");
 	$user = mysqli_fetch_array($r, MYSQLI_ASSOC);
 
 	if($user == null){
 		$return["success"] = false;
 		$return["code"] = 12;
-		$return["message"] = "Invalid email or password";
+		$return["message"] = "User don't exist";
 		$return["response"] = null;
 	}else{
 
