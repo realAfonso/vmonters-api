@@ -17,6 +17,7 @@ where
 	(u.id = uf.friend) and 
 	(u.id = uc.user) and 
 	(u.id = us.user) and 
+	(us.buddy = '1') and 
 	(c.id = uc.crest) and 
 	(a.id = u.avatar) and 
 	(u.status = 1)
