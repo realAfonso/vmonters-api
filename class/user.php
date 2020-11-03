@@ -43,21 +43,14 @@
 
 			$db = new Database();
 
-			$r = $db->select("vms_user_has_species", "WHERE id = '$id'");
+			$r = $db->select("vms_active_monsters", "WHERE id = '$id'");
 			$uhs = mysqli_fetch_array($r, MYSQLI_ASSOC);
 
 			if($uhs == null) return null;
 
-			$specie = $this->getSpecie($uhs["specie"]);
+			$uhs["image"] = "http://api.vmonsters.com/assets/species/".$uhs["image"];
 
-			$return = array(
-				"id" => $uhs["id"],
-				"specie" => $specie["name"],
-				"name" => $uhs["name"],
-				"image" => "http://api.vmonsters.com/assets/species/".$specie["image"]
-			);
-
-			return $return;
+			return $uhs;
 		}
 
 		public function getCrest($id) {

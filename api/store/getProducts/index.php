@@ -17,16 +17,9 @@
 	$store["banners"] = array();
 
 	$banner = array();
-	$banner["image"] = "http://api.vmonsters.com/assets/banners/halloween.jpg";
-	$banner["title"] = "Evento de Halloween";
-	$banner["description"] = "Apenas no dia 31/10 estarão disponíveis na loja um digimon exclusivo e um avatar exclusivo!\n\nO tema de halloween deste ano é Gotsumon e Pumpkinmon, então espere ver algo relacionado a eles neste evento.";
-
-	array_push($store["banners"], $banner);
-
-	$banner = array();
-	$banner["image"] = "http://api.vmonsters.com/assets/banners/testweek.jpg";
-	$banner["title"] = "Semana de testes";
-	$banner["description"] = "Apenas entre os dias 26/10 e 31/10 estará disponível na loja um avatar exclusivo para aqueles que estão ajudando a testar o game nesta primeira semana!\n\nO avatar selecionado é o Taichi de V-Tamers, nada mais perfeito para presentear os primeiros Tamers, do que o primeiro Tamer de Digimon!";
+	$banner["image"] = "http://api.vmonsters.com/assets/banners/diadelosmuertos2020.jpg";
+	$banner["title"] = "Dia de Los Muertos 2020";
+	$banner["description"] = "Se comemoramos o halloween, não poderiamos deixar o Dia de Los Muertos de fora, não é mesmo?!\n\nApenas no dia 02/11 ganhe um avatar e um digimon exclusivo em comemoração a este evento tipicamente latino!";
 
 	array_push($store["banners"], $banner);
 
