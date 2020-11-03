@@ -62,6 +62,7 @@
 			if($crest == null) return null;
 
 			$return = array();
+			$return["id"] = $crest["id"];
 			$return["name"] = $crest["name"];
 			$return["icon"] = "http://api.vmonsters.com/assets/crests/".$crest["icon"];
 			$return["colorLight"] = $crest["color_light"];

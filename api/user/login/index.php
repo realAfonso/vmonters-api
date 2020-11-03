@@ -8,6 +8,8 @@
 	include_once("../../../class/connection.php");
 	include_once("../../../class/database.php");
 	include_once("../../../class/user.php");
+	include_once("../../../class/date.php");
+	include_once("../../../class/data.php");
 
 	$data = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
 
@@ -36,6 +38,8 @@
 		$return["response"]["wallet"] = $user["wallet"];
 		$return["response"]["reputation"] = $user["reputation"];
 
+		$return["response"]["canConnect"] = userCanGiveData($user["id"]);
+
 		$return["response"]["buddy"] = $u->getBuddy($user["id"]);
 
 		$crestId = $user["crest"];
@@ -49,14 +53,10 @@
 		$return["response"]["crest"]["colorLight"] = $crest["color_light"];
 		$return["response"]["crest"]["colorDark"] = $crest["color_dark"];
 
-		$lastDate = date("Y-m-d", $user["lastLogin"]);
-		$today = date("Y-m-d");
-		$yesterday = date("Y-m-d", strtotime($today." - 1 days"));
-
-		if($lastDate == $today){
+		if(isToday($user["lastLogin"])){
 			$return["response"]["bonus"] = null;
 		}else{
-			if($lastDate == $yesterday){
+			if(isYesterday($user["lastLogin"])){
 				$log = array();
 				$log["id"] = $user["id"];
 				$log["lastLogin"] = time();
@@ -90,6 +90,8 @@
 					$bn["id"] = $user["id"];
 					$bn["wallet"] = $user["wallet"] + $bo["value"];
 					$db->update("vms_users", $bn);
+
+					$return["response"]["wallet"] = $user["wallet"] + $bo["value"];
 				}else if($bo["type"] == "AVATAR"){
 					$bn = array();
 					$bn["user"] = $user["id"];

@@ -109,8 +109,10 @@
 			    	$push['subtitle'] = $subtitle;
 			    }
 
-			    /* envia o push para o app */
-			  	$response = sendMessage($push);
+				/* envia o push para o app caso não seja dsv*/
+			    if(strpos($_SERVER["HTTP_HOST"], "dsv")===false){
+					$response = sendMessage($push);
+				}
 
 			  	/* mostra o retorno da onesignal na tela
 			  	por favor, não remova esse código */
