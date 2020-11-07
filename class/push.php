@@ -52,6 +52,27 @@
 					array_push($push['filters'], $dados['filter']);
 				}
 
+				$sufix = "dsv";
+
+				/* configura o ambiente para produção */
+			    if (strpos($_SERVER["HTTP_HOST"], "dsv") === false) {
+			    	$sufix = "prd";
+				}
+
+		    	$operator = array(
+		    		"operator" => "AND"
+		    	);
+
+				$ambient = array(
+						"field" => "tag", 
+						"key" => "ambient", 
+						"relation" => "=", 
+						"value" => $sufix
+				);
+
+				array_push($push['filters'], $operator);
+				array_push($push['filters'], $ambient);
+
 				/* verifica se o push vai ser enviado agora,
 				ou em uma hora pré-definida pelo usuário */
 				if(!empty($dados['date'])){
@@ -109,10 +130,9 @@
 			    	$push['subtitle'] = $subtitle;
 			    }
 
-				/* envia o push para o app caso não seja dsv*/
-			    if(strpos($_SERVER["HTTP_HOST"], "dsv")===false){
-					$response = sendMessage($push);
-				}
+				$response = sendMessage($push);
+
+				//print_r($response);
 
 			  	/* mostra o retorno da onesignal na tela
 			  	por favor, não remova esse código */

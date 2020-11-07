@@ -48,6 +48,7 @@
 		$crest = mysqli_fetch_array($r, MYSQLI_ASSOC);
 
 		$return["response"]["crest"] = array();
+		$return["response"]["crest"]["id"] = $crest["id"];
 		$return["response"]["crest"]["name"] = $crest["name"];
 		$return["response"]["crest"]["icon"] = "http://api.vmonsters.com/assets/crests/".$crest["icon"];
 		$return["response"]["crest"]["colorLight"] = $crest["color_light"];

@@ -2,6 +2,50 @@
 	include_once("connection.php");
 	include_once("database.php");
 
+	function getUserName($userId)
+	{
+		$db = new Database();
+
+		$r = $db->select("vms_users", "WHERE id = '$userId'");
+		$user = mysqli_fetch_array($r, MYSQLI_ASSOC);
+
+		if($user == null) return null;
+
+		$username = $user["name"];
+
+		if ($username == "") $username = "Player12".$user["id"];
+
+		return $username;
+	}
+
+	function userHasMoney($userId, $price)
+	{
+		$db = new Database();
+
+		$r = $db->select("vms_users", "WHERE id = '$userId'");
+		$user = mysqli_fetch_array($r, MYSQLI_ASSOC);
+
+		if ($user["wallet"] >= $price) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	function discountUserWallet($userId, $price)
+	{
+		$db = new Database();
+
+		$r = $db->select("vms_users", "WHERE id = '$userId'");
+		$user = mysqli_fetch_array($r, MYSQLI_ASSOC);
+
+		$user["wallet"] = $user["wallet"] - $price;
+
+		$r = $db->update("vms_users", $user);
+
+		return $r;
+	}
+
 	class User {
 
 		public function getBuddy($id) {

@@ -11,6 +11,8 @@
 	include_once("../../../class/friends.php");
 	include_once("../../../class/data.php");
 	include_once("../../../class/date.php");
+	include_once("../../../class/crest.php");
+	include_once("../../../class/push.php");
 
 	$data = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
 
@@ -20,12 +22,14 @@
 		$friends = getFriends($data["userId"]); 
 
 		foreach($friends as $friend){
-			giveData($data["userCrest"], $friend["id"], 1);
+			giveData($data["crestId"], $friend["id"], 1, $data["userId"]);
 		}
 
 		$count = sizeof($friends);
 
-		giveData($data["userCrest"], $data["userId"], $count);
+		giveData($data["crestId"], $data["userId"], $count, $data["userId"]);
+
+		setUserGivedData($data["userId"]);
 
 		$return = array();
 		$return["success"] = true;
