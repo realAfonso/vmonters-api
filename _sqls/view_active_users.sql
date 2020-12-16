@@ -6,9 +6,12 @@ select
 	u.password AS password,
 	u.wallet AS wallet,
 	u.reputation AS reputation,
+	u.house AS house,
 	u.lastLogin AS lastLogin,
 	u.lastDay AS lastDay,
-	c.id AS crest 
+	c.id AS crest,
+	u.type AS type,
+	u.vip AS vip
 from 
 	vms_users u,
 	vms_avatars a,

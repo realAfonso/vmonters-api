@@ -7,6 +7,8 @@
 	include("../../../../class/connection.php");
 	include("../../../../class/database.php");
 	include("../../../../class/user.php");
+	include("../../../../class/specie.php");
+	include("../../../../class/crest.php");
 	include("../../../../modules/_mail_module.php");
 
 	$data = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
@@ -30,6 +32,9 @@
 		$friend["avatar"] = "http://api.vmonsters.com/assets/avatars/".$f["avatar"];
 		$friend["buddy"] = $us->getMonster($f["buddy"]);
 		$friend["crest"] = $us->getCrest($f["crest"]);
+
+		$user = getUser($f["friendId"]);
+		$friend["badge"] = $user["badge"];
 
 		array_push($friends, $friend);
 	}

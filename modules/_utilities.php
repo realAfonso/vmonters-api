@@ -25,7 +25,7 @@
 
 	function getRandomRarity()
 	{
-		return getRarity(rand(0,100));
+		return getRarity(rand(1,100));
 	}
 
 	function getRarity($value)

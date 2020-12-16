@@ -1,37 +1,57 @@
 <?
 
-	function getToday()
-	{
-		return date("Y-m-d");
-	}
+function getBeforeHourForTime($hours, $time)
+{
+    return strtotime('-' . $hours . ' hours', $time);
+}
 
-	function getYesterday()
-	{
-		return date("Y-m-d", strtotime(getToday()." - 1 days"));
-	}
+function getAfterHourForTime($hours, $time)
+{
+    return strtotime('+' . $hours . ' hours', $time);
+}
 
-	function getDay($timestamp)
-	{
-		return date("Y-m-d", $timestamp);
-	}
+function getBeforeHour($hours)
+{
+    return strtotime('-' . $hours . ' hours', time());
+}
 
-	function isToday($timestamp)
-	{
-		$lastDate = getDay($timestamp);
-		$today = getToday();
-		return $lastDate == $today;
-	}
+function getAfterHour($hours)
+{
+    return strtotime('+' . $hours . ' hours', time());
+}
 
-	function isYesterday($timestamp)
-	{
-		$lastDate = getDay($timestamp);
-		$yesterday = getYesterday();
-		return $lastDate == $yesterday;
-	}
+function getToday()
+{
+    return date("Y-m-d");
+}
 
-	function isNotToday($timestamp)
-	{
-		return !isToday($timestamp);
-	}
+function getYesterday()
+{
+    return date("Y-m-d", strtotime(getToday() . " - 1 days"));
+}
+
+function getDay($timestamp)
+{
+    return date("Y-m-d", $timestamp);
+}
+
+function isToday($timestamp)
+{
+    $lastDate = getDay($timestamp);
+    $today = getToday();
+    return $lastDate == $today;
+}
+
+function isYesterday($timestamp)
+{
+    $lastDate = getDay($timestamp);
+    $yesterday = getYesterday();
+    return $lastDate == $yesterday;
+}
+
+function isNotToday($timestamp)
+{
+    return !isToday($timestamp);
+}
 
 ?>

@@ -4,16 +4,24 @@ SELECT
     uhs.name as name, 
     s.name as specie, 
     s.image as image,
+    s.description as description,
     s.level as level,
     s.attribute as attribute,
     s.type1,
     s.type2,
+    uhs.personality,
     s.hp,
     s.atk,
     s.def,
     s.spatk,
     s.spdef,
     s.spd,
+    uhs.euHp,
+    uhs.euAtk,
+    uhs.euDef,
+    uhs.euSpAtk,
+    uhs.euSpDef,
+    uhs.euSpd,
     s.rarity,
     uhs.buddy as isBuddy
 FROM 
@@ -21,3 +29,4 @@ FROM
     vms_species s 
 WHERE 
     uhs.specie = s.id
+ORDER BY s.name ASC

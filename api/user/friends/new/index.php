@@ -22,7 +22,7 @@
 	if($friend_id == $data["i"]){
 		$return["success"] = false;
 		$return["code"] = 1;
-		$return["message"] = "Same user";
+		$return["message"] = "Você não pode adicionar você mesmo como amigo.";
 	}else{
 
 		$r = $db->select("vms_user_has_friends", " WHERE user = '".$data["i"]."' AND friend = '".$friend_id."'");
@@ -43,7 +43,7 @@
 			if($user == null){
 				$return["success"] = false;
 				$return["code"] = 1;
-				$return["message"] = "This user don't exist";
+				$return["message"] = "O usuário que você está tentando adicionar não existe. Verifique o friend code usado e tenten novamente.";
 			}else{
 				$uhf1 = array();
 				$uhf1["user"] = $data["i"];
@@ -81,13 +81,13 @@
 				} else {
 					$return["success"] = false;
 					$return["code"] = 6;
-					$return["message"] = "An error occurred";
+					$return["message"] = "Um erro inesperado ocorreu, por favor, tente novamente mais tarde.";
 				}
 			}
 		}else{
 			$return["success"] = false;
 			$return["code"] = 1;
-			$return["message"] = "Is current friend";
+			$return["message"] = "O usuário que você está tentando adicionar já é seu amigo.";
 		}
 	}
 

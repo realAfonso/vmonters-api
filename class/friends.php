@@ -23,4 +23,16 @@
 		return $friends;
 	}
 
+	function isFriend($userId, $friendId)
+	{
+		$db = new Database();
+
+		$r = $db->select("vms_active_friends", "WHERE userId = '$userId' AND friendId = '$friendId'");
+		$f = mysqli_fetch_array($r, MYSQLI_ASSOC);
+
+		if($f == null) return false;
+
+		return true;
+	}
+
 ?>

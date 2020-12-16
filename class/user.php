@@ -1,166 +1,305 @@
 <?php
-	include_once("connection.php");
-	include_once("database.php");
+include_once("connection.php");
+include_once("database.php");
 
-	function getUserName($userId)
-	{
-		$db = new Database();
+function getUser($id)
+{
+    $db = new Database();
 
-		$r = $db->select("vms_users", "WHERE id = '$userId'");
-		$user = mysqli_fetch_array($r, MYSQLI_ASSOC);
+    $r = $db->select("vms_active_users", " WHERE id = '" . $id . "'");
+    $user = mysqli_fetch_array($r, MYSQLI_ASSOC);
 
-		if($user == null) return null;
+    if ($user == null) return null;
 
-		$username = $user["name"];
+    $return = array();
+    $return["id"] = $user["id"];
+    $return["name"] = $user["name"];
+    $return["avatar"] = "http://api.vmonsters.com/assets/avatars/" . $user["avatar"];
+    $return["wallet"] = $user["wallet"];
+    $return["reputation"] = $user["reputation"];
+    $return["house"] = $user["house"];
+    $return["buddy"] = getBuddy($user["id"]);
+    $return["crest"] = getCrest($user["crest"]);
 
-		if ($username == "") $username = "Player12".$user["id"];
+    $return[buddy] = assertHouseyStats($return[buddy], $user["house"]);
 
-		return $username;
-	}
+    $return["lastRequest"] = $user["lastRequest"];
 
-	function userHasMoney($userId, $price)
-	{
-		$db = new Database();
+    $return["badge"] = getUserBadge($user["vip"], $user["type"]);
 
-		$r = $db->select("vms_users", "WHERE id = '$userId'");
-		$user = mysqli_fetch_array($r, MYSQLI_ASSOC);
+    return $return;
+}
 
-		if ($user["wallet"] >= $price) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+function getUserVip($id)
+{
+    $db = new Database();
 
-	function discountUserWallet($userId, $price)
-	{
-		$db = new Database();
+    $user = $db->selectObject("vms_active_users", " WHERE id = '" . $id . "'");
 
-		$r = $db->select("vms_users", "WHERE id = '$userId'");
-		$user = mysqli_fetch_array($r, MYSQLI_ASSOC);
+    if ($user == null) return null;
 
-		$user["wallet"] = $user["wallet"] - $price;
+    return $user["vip"];
+}
 
-		$r = $db->update("vms_users", $user);
+function getUserBadge($userVip, $userType)
+{
+    $badge = null;
 
-		return $r;
-	}
+    if ($userType > 1) $badge = "bd_adm.png";
+    else if ($userVip == 1) $badge = "bd_baby.png";
+    else if ($userVip == 2) $badge = "bd_intraining.png";
+    else if ($userVip == 3) $badge = "bd_rookie.png";
+    else if ($userVip == 4) $badge = "bd_champion.png";
+    else if ($userVip == 5) $badge = "bd_ultimate.png";
+    else if ($userVip == 6) $badge = "bd_mega.png";
 
-	class User {
+    if ($badge != null) $badge = "http://api.vmonsters.com/assets/badges/" . $badge;
 
-		public function getBuddy($id) {
-			$return = array();
+    return $badge;
+}
 
-			$db = new Database();
+function getPlaces($userId)
+{
+    $db = new Database();
 
-			$r = $db->select("vms_user_has_species", "WHERE user = '$id' AND buddy = '1'");
-			$uhs = mysqli_fetch_array($r, MYSQLI_ASSOC);
+    $places = array();
 
-			if($uhs == null) return null;
+    $r = $db->select("vms_user_has_place", "WHERE user = '$userId'");
+    while ($p = mysqli_fetch_array($r, MYSQLI_ASSOC)) {
+        unset($p[user]);
+        array_push($places, $p);
+    }
 
-			$specie = $this->getSpecie($uhs["specie"]);
+    return $places;
+}
 
-			$return = array(
-				"id" => $uhs["id"],
-				"specie" => $specie["name"],
-				"name" => $uhs["name"],
-				"image" => "http://api.vmonsters.com/assets/species/".$specie["image"]
-			);
+function getTowerOfValor($userId)
+{
+    $db = new Database();
 
-			return $return;
-		}
+    $towerFloor = $db->selectObject("vms_user_has_valor", "WHERE user = '$userId'");
 
-		private function getSpecie($id){
-			$db = new Database();
-			$r = $db->select("vms_species", "WHERE id = '$id'");
-			return mysqli_fetch_array($r, MYSQLI_ASSOC);
-		}
+    if ($towerFloor != null) {
+        if ($towerFloor[lastTickets] <= getBeforeHour(2)) {
+            $towerFloor[battleTickets] = 10;
+            $towerFloor[lastTickets] = time();
+            $db->update("vms_user_has_valor", $towerFloor);
+        }
 
-		public function getFriends($id) {
-			$db = new Database();
-			$r = $db->select("vms_active_friends", "WHERE userId = '$id'");
-			return $r;
-		}
+        if ($towerFloor[battleTickets] == 0) {
+            $towerFloor[countDown] = getAfterHourForTime(2, $towerFloor[lastTickets]) - time();
+        } else {
+            $towerFloor[countDown] = 0;
+        }
 
-		public function getMonster($id) {
-			$return = array();
+        $nextFloor = $towerFloor[floor] + 1;
 
-			$db = new Database();
+        $nextPoints = 10;
 
-			$r = $db->select("vms_active_monsters", "WHERE id = '$id'");
-			$uhs = mysqli_fetch_array($r, MYSQLI_ASSOC);
+        for ($i = 2; $i < $nextFloor; $i++) {
+            $nextPoints = $nextPoints * 2;
+        }
 
-			if($uhs == null) return null;
+        $towerFloor[nextPoints] = $nextPoints;
 
-			$uhs["image"] = "http://api.vmonsters.com/assets/species/".$uhs["image"];
+        $towerFloor[buddy] = getBuddy($userId);
+    }
 
-			return $uhs;
-		}
+    return $towerFloor;
+}
 
-		public function getCrest($id) {
-			$db = new Database();
+function getUserName($userId)
+{
+    $db = new Database();
 
-			$r = $db->select("vms_crests", " WHERE id = '$id'");
-			$crest = mysqli_fetch_array($r, MYSQLI_ASSOC);
+    $r = $db->select("vms_users", "WHERE id = '$userId'");
+    $user = mysqli_fetch_array($r, MYSQLI_ASSOC);
 
-			if($crest == null) return null;
+    if ($user == null) return null;
 
-			$return = array();
-			$return["id"] = $crest["id"];
-			$return["name"] = $crest["name"];
-			$return["icon"] = "http://api.vmonsters.com/assets/crests/".$crest["icon"];
-			$return["colorLight"] = $crest["color_light"];
-			$return["colorDark"] = $crest["color_dark"];
+    $username = $user["name"];
 
-			return $return;
-		}
+    if ($username == "") $username = "Player12" . $user["id"];
 
-		public function getFriend($userId, $friendId) {
-			$db = new Database();
-			$r = $db->select("vms_active_friends", " WHERE userId = '$userId' AND friendId = '$friendId'");
-			$user = mysqli_fetch_array($r, MYSQLI_ASSOC);
+    return $username;
+}
 
-			$friend = array();
-			$friend["id"] = $user["friendId"];
-			$friend["nickname"] = $user["nickname"];
-			$friend["name"] = $user["name"];
-			$friend["avatar"] = "http://api.vmonsters.com/assets/avatars/".$user["avatar"];
-			$friend["buddy"] = $this->getMonster($user["buddy"]);
-			$friend["crest"] = $this->getCrest($user["crest"]);
+function getUserHouse($userId)
+{
+    $db = new Database();
 
-			return $friend;
-		}
+    $r = $db->select("vms_users", "WHERE id = '$userId'");
+    $user = mysqli_fetch_array($r, MYSQLI_ASSOC);
 
-		public function getUser($id){
-			$db = new Database();
-			$r = $db->select("vms_active_users", " WHERE id = '".$id."'");
-			$user = mysqli_fetch_array($r, MYSQLI_ASSOC);
+    if ($user == null) return null;
 
-			if($user == null) return null;
+    return $user["house"];
+}
 
-			$return = array();
-			$return["id"] = $user["id"];
-			$return["name"] = $user["name"];
-			$return["avatar"] = "http://api.vmonsters.com/assets/avatars/".$user["avatar"];
-			$return["wallet"] = $user["wallet"];
-			$return["reputation"] = $user["reputation"];
+function userHasMoney($userId, $price)
+{
+    $db = new Database();
 
-			$return["buddy"] = $this->getBuddy($user["id"]);
+    $r = $db->select("vms_users", "WHERE id = '$userId'");
+    $user = mysqli_fetch_array($r, MYSQLI_ASSOC);
 
-			$crestId = $user["crest"];
+    if ($user["wallet"] >= $price) {
+        return true;
+    } else {
+        return false;
+    }
+}
 
-			$r = $db->select("vms_crests", " WHERE id = '$crestId'");
-			$crest = mysqli_fetch_array($r, MYSQLI_ASSOC);
+function discountUserWallet($userId, $price)
+{
+    $db = new Database();
 
-			$return["crest"] = array();
-			$return["crest"]["name"] = $crest["name"];
-			$return["crest"]["icon"] = "http://api.vmonsters.com/assets/crests/".$crest["icon"];
-			$return["crest"]["colorLight"] = $crest["color_light"];
-			$return["crest"]["colorDark"] = $crest["color_dark"];
+    $r = $db->select("vms_users", "WHERE id = '$userId'");
+    $user = mysqli_fetch_array($r, MYSQLI_ASSOC);
 
-			$return["lastRequest"] = $user["lastRequest"];
+    $user["wallet"] = $user["wallet"] - $price;
 
-			return $return;
-		}
-	}
+    $r = $db->update("vms_users", $user);
+
+    return $r;
+}
+
+class User
+{
+
+    public function getBuddy($id)
+    {
+        $return = array();
+
+        $db = new Database();
+
+        $r = $db->select("vms_user_has_species", "WHERE user = '$id' AND buddy = '1'");
+        $uhs = mysqli_fetch_array($r, MYSQLI_ASSOC);
+
+        if ($uhs == null) return null;
+
+        $return = $this->getMonster($uhs["id"]);
+
+        return $return;
+    }
+
+    private function getSpecie($id)
+    {
+        $db = new Database();
+        $r = $db->select("vms_species", "WHERE id = '$id'");
+        return mysqli_fetch_array($r, MYSQLI_ASSOC);
+    }
+
+    public function getFriends($id)
+    {
+        $db = new Database();
+        $r = $db->select("vms_active_friends", "WHERE userId = '$id'");
+        return $r;
+    }
+
+    public function getMonster($id)
+    {
+        $return = array();
+
+        $db = new Database();
+
+        $r = $db->select("vms_active_monsters", "WHERE id = '$id'");
+        $uhs = mysqli_fetch_array($r, MYSQLI_ASSOC);
+
+        if ($uhs == null) return null;
+
+        $uhs["image"] = "http://api.vmonsters.com/assets/species/" . $uhs["image"];
+
+        return $uhs;
+    }
+
+    public function getCrest($id)
+    {
+        $db = new Database();
+
+        $r = $db->select("vms_crests", " WHERE id = '$id'");
+        $crest = mysqli_fetch_array($r, MYSQLI_ASSOC);
+
+        if ($crest == null) return null;
+
+        $return = array();
+        $return["id"] = $crest["id"];
+        $return["name"] = $crest["name"];
+        $return["icon"] = "http://api.vmonsters.com/assets/crests/" . $crest["icon"];
+        $return["colorLight"] = $crest["color_light"];
+        $return["colorDark"] = $crest["color_dark"];
+
+        return $return;
+    }
+
+    public function getFriend($userId, $friendId)
+    {
+        $db = new Database();
+        $r = $db->select("vms_active_friends", " WHERE userId = '$userId' AND friendId = '$friendId'");
+        $user = mysqli_fetch_array($r, MYSQLI_ASSOC);
+
+        $friend = array();
+        $friend["id"] = $user["friendId"];
+        $friend["nickname"] = $user["nickname"];
+        $friend["name"] = $user["name"];
+        $friend["avatar"] = "http://api.vmonsters.com/assets/avatars/" . $user["avatar"];
+        $friend["buddy"] = $this->getMonster($user["buddy"]);
+        $friend["crest"] = $this->getCrest($user["crest"]);
+
+        return $friend;
+    }
+
+    public function getUser($id)
+    {
+        $db = new Database();
+        $r = $db->select("vms_active_users", " WHERE id = '" . $id . "'");
+        $user = mysqli_fetch_array($r, MYSQLI_ASSOC);
+
+        if ($user == null) return null;
+
+        $return = array();
+        $return["id"] = $user["id"];
+        $return["name"] = $user["name"];
+        $return["avatar"] = "http://api.vmonsters.com/assets/avatars/" . $user["avatar"];
+        $return["wallet"] = $user["wallet"];
+        $return["reputation"] = $user["reputation"];
+
+        $return["buddy"] = $this->getBuddy($user["id"]);
+
+        $crestId = $user["crest"];
+
+        $r = $db->select("vms_crests", " WHERE id = '$crestId'");
+        $crest = mysqli_fetch_array($r, MYSQLI_ASSOC);
+
+        $return["crest"] = array();
+        $return["crest"]["name"] = $crest["name"];
+        $return["crest"]["icon"] = "http://api.vmonsters.com/assets/crests/" . $crest["icon"];
+        $return["crest"]["colorLight"] = $crest["color_light"];
+        $return["crest"]["colorDark"] = $crest["color_dark"];
+
+        $return["lastRequest"] = $user["lastRequest"];
+
+        $return["badge"] = $this->getUserBadge($user["vip"], $user["type"]);
+
+        return $return;
+    }
+
+    public function getUserBadge($userVip, $userType)
+    {
+        $badge = null;
+
+        if ($userType > 1) $badge = "bg_adm.png";
+        else if ($userVip == 1) $badge = "bg_baby.png";
+        else if ($userVip == 2) $badge = "bg_intraining.png";
+        else if ($userVip == 3) $badge = "bg_rookie.png";
+        else if ($userVip == 4) $badge = "bg_champion.png";
+        else if ($userVip == 5) $badge = "bg_ultimate.png";
+        else if ($userVip == 6) $badge = "bg_mega.png";
+
+        if ($badge != null) $badge = "http://api.vmonsters.com/assets/badges/" . $badge;
+
+        return $badge;
+    }
+}
+
 ?>

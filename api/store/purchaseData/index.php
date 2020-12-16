@@ -8,6 +8,7 @@
 	include("../../../class/database.php");
 	include("../../../class/data.php");
 	include("../../../class/user.php");
+	include("../../../class/specie.php");
 	include("../../../class/crest.php");
 
 	$data = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
@@ -39,7 +40,7 @@
 	{
 		$return = array();
 
-		if ($dataId <= 3){
+		if ($dataId <= 3 || $dataId == 7 || $dataId == 8 || $dataId == 9){
 			$crest = 0;
 			$count = 0;
 
@@ -49,7 +50,15 @@
 				$count = 20;
 			} else if ($dataId == 3) {
 				$count = 30;
+			} else if ($dataId == 7) {
+				$count = 60;
+			} else if ($dataId == 8) {
+				$count = 120;
+			} else if ($dataId == 9) {
+				$count = 250;
 			}
+
+			if(getUserVip($userId) >= 2) $count = intval($count * 1.1);
 
 			giveData($crest, $userId, $count, $userId);
 

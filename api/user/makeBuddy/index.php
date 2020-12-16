@@ -7,6 +7,7 @@
 	include("../../../class/connection.php");
 	include("../../../class/database.php");
 	include("../../../class/user.php");
+	include("../../../class/specie.php");
 
 	$data = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
 
@@ -28,7 +29,7 @@
 		$r = $db->sql("UPDATE vms_user_has_species SET buddy = '1' WHERE id = '".$m["id"]."'");
 
 		$return["success"] = true;
-		$return["response"] = $u->getMonster($m["id"]);
+		$return["response"] = getMonster($m["id"]);
 	}
 
 

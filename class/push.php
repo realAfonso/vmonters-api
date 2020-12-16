@@ -70,11 +70,28 @@
 						"value" => $sufix
 				);
 
+				$notify = array(
+						"field" => "tag", 
+						"key" => "notify", 
+						"relation" => "!=", 
+						"value" => "false"
+				);
+
 				array_push($push['filters'], $operator);
 				array_push($push['filters'], $ambient);
 
-				/* verifica se o push vai ser enviado agora,
-				ou em uma hora pré-definida pelo usuário */
+				//array_push($push['filters'], $operator);
+				//array_push($push['filters'], $notify);
+
+				if(!empty($dados['filterNot'])){
+				array_push($push['filters'], $operator);
+					array_push($push['filters'], $dados['filterNot']);
+				}
+
+				/* 
+				 * enviar [date] se quiser o push em uma hora específica
+				 * padrão: "2015-09-24 14:00:00 GMT-0700"
+				 */
 				if(!empty($dados['date'])){
 					$push['send_after'] = $dados['date'].' GMT-0300';
 				}
@@ -91,6 +108,10 @@
 				para dispositivos com Android */
 				if(!empty($dados['android'])){
 					$push['isAndroid'] = true;
+				}
+
+				if(!empty($dados['group'])){
+					$push['android_group'] = $dados['group'];
 				}
 
 				/* verifica se existe uma url para

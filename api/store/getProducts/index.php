@@ -2,7 +2,7 @@
 
 	ini_set("memory_limit","500M");
 	header('Content-type: application/json');
-	date_default_timezone_set("America/Sao_Paulo");
+	date_default_timezone_set("America/Recife");
 
 	include("../../../class/pretty_json.php");
 	include("../../../class/connection.php");
@@ -17,9 +17,23 @@
 	$store["banners"] = array();
 
 	$banner = array();
-	$banner["image"] = "http://api.vmonsters.com/assets/banners/diadelosmuertos2020.jpg";
-	$banner["title"] = "Dia de Los Muertos 2020";
-	$banner["description"] = "Se comemoramos o halloween, não poderiamos deixar o Dia de Los Muertos de fora, não é mesmo?!\n\nApenas no dia 02/11 ganhe um avatar e um digimon exclusivo em comemoração a este evento tipicamente latino!";
+	$banner["image"] = "http://api.vmonsters.com/assets/banners/vilans.jpg";
+	$banner["title"] = "A era dos vilões!";
+	$banner["description"] = "Começou a era dos vilões no V-Monsters!\n\nSão três novos avatares com os vilões mais amados e odiados da franquia! Devimon, Myotismon e Piedmon vieram assombrar os Tamers de V-Monsters!\n\nCompre já o avatar do seu vilão preferido ;)";
+
+	array_push($store["banners"], $banner);
+
+	$banner = array();
+	$banner["image"] = "http://api.vmonsters.com/assets/banners/last_price.jpg";
+	$banner["title"] = "Abaixou o preço!";
+	$banner["description"] = "Todos os avatares de Last Evolution Kizuma tiveram seu preço reduzido!!\n\nSe você sempre quis comprar os avatares do último longa-metragem de Digimon, agora é a sua chance de pagar um preço bem camarada!";
+
+	array_push($store["banners"], $banner);
+
+	$banner = array();
+	$banner["image"] = "http://api.vmonsters.com/assets/banners/digidata_update.jpg";
+	$banner["title"] = "Atualização 0.1.2";
+	$banner["description"] = "Bem vindos a atualização da DigiData!\n\nO que é DigiData?\n\nA DigiData é uma energia que emana do seu brasão, essa energia se torna física quando há uma conexão entre dois Tamers, o que permite que ela seja armazenada pelo Tamer para ser usada futuramente. A DigiData pode ser usada para evoluir o seu parceiro para diferentes espécies.\n\nTambém existe a DigiData Neutra, que é uma energia sem brasão, que pode ser adquirida na loja. A DigiData neutra funciona como experiência para o seu Digimon, então será necessário para que seu parceiro evolua!\n\nA DigiData Neutra pode ser conseguida apenas na loja, comprando os packs. A DigiData do seu brasão você pode conseguir criando uma DigiConnection com seus amigos a partir do menu de amigos. As DigiDatas de outros brasões você pode conseguir de duas formas:\n\n - Quando seus amigos fazem uma DigiConnection eles lhe dão uma data do brasão deles (tenha vários amigos);\n\n - Comprando os packs de DigiDatas aleatórios na loja, cada pack contém DigiDatas aleatórias, ao comprar-las você irá receber DigiDatas de todos os brasões.\n\nEsperamos que gostem dessa atualização ;)\n\nblablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla blablabla";
 
 	array_push($store["banners"], $banner);
 

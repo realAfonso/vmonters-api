@@ -7,6 +7,7 @@
 	include_once("../../../class/connection.php");
 	include_once("../../../class/database.php");
 	include_once("../../../class/user.php");
+	include_once("../../../class/specie.php");
 	include_once("../../../modules/_utilities.php");
 
 	$data = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
@@ -28,13 +29,18 @@
 			$return["message"] = "User already has a partner";
 			$return["response"] = null;
 		}else{
-			$rarity = getRandomRarity();
 
 			$babies = array();
 
-			$r = $db->select("vms_species", " WHERE rarity = '$rarity' AND level = 'BABY'");
-			while($item = mysqli_fetch_array($r, MYSQLI_ASSOC)){
-				array_push($babies, $item);
+			while(sizeof($babies) == 0){
+			
+				$rarity = getRandomRarity();
+
+				$r = $db->select("vms_species", " WHERE rarity = '$rarity' AND level = 'BABY'");
+				while($item = mysqli_fetch_array($r, MYSQLI_ASSOC)){
+					array_push($babies, $item);
+				}
+
 			}
 
 			if(sizeof($babies) == 0){
@@ -51,10 +57,12 @@
 					"user" => $data["i"],
 					"specie" => $buddy["id"],
 					"name" => $buddy["name"],
+					"personality" => getRandomPersonality(),
 					"buddy" => true
 				);
 
 				$r = $db->insert("vms_user_has_species", $uhs);
+				$r = $db->insert("vms_monster_has_step", array("monster" => $r, "specie" => $buddy["id"]));
 
 				if($r){
 					$u = new User();

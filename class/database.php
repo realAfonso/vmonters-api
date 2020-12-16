@@ -27,14 +27,18 @@
 			}
 		}
 
-		public function update($table, $array, $target = "", $showQuery=false) {
+		public function update($table, $array, $showQuery=false) {
 			$conn = new Connection();
 			$mysqli = $conn->open();
 			$id = $array["id"];
 			unset($array["id"]);
 			$sql = "UPDATE $table SET ";
 			foreach ($array as $key => $value) {
-				$sql .= $mysqli->real_escape_string($key)." = '".$mysqli->real_escape_string($value)."', ";
+				if ($value != null) {
+					$sql .= $mysqli->real_escape_string($key)." = '".$mysqli->real_escape_string($value)."', ";
+				} else {
+					$sql .= $mysqli->real_escape_string($key)." = NULL, ";
+				}
 			}
 			if($target == "") {
 				$sql .= "WHERE id = '".$id."'";
@@ -42,6 +46,7 @@
 				$sql .= "WHERE ".$target." = '".$array[$target]."'";
 			}
 			$sql = str_replace("', WHERE", "' WHERE", $sql);
+			$sql = str_replace(", WHERE", " WHERE", $sql);
 			if($showQuery) echo $sql;
 			$result = $mysqli->query($sql);
 			$mysqli = $conn->close($mysqli);
@@ -56,6 +61,21 @@
 			$result = $mysqli->query($sql);
 			$mysqli = $conn->close($mysqli);
 			return $result;
+		}
+
+		public function selectObject($table, $cond="", $showQuery=false) {
+			$r = $this->select($table, $cond, $showQuery);
+			$o = mysqli_fetch_array($r, MYSQLI_ASSOC);
+			return $o;
+		}
+
+		public function selectArray($table, $cond="", $showQuery=false) {
+			$return = array();
+			$r = $this->select($table, $cond, $showQuery);
+			while($o = mysqli_fetch_array($r, MYSQLI_ASSOC)){
+				array_push($return, $o);
+			}
+			return $return;
 		}
 
 		public function delete($table, $id, $showQuery=false) {
@@ -75,6 +95,12 @@
 			$result = $mysqli->query($sql);
 			$mysqli = $conn->close($mysqli);
 			return $result;
+		}
+
+		public function count($table, $cond="", $showQuery=false) {
+			$r = $this->sql("SELECT count(*) as quantity FROM $table $cond", $showQuery);
+  			$count = mysqli_fetch_array($r, MYSQLI_ASSOC);
+			return $count[quantity];
 		}
 	}
 ?>

@@ -2,7 +2,7 @@
 
 	ini_set("memory_limit","500M");
 	header('Content-type: application/json');
-	date_default_timezone_set("America/Sao_Paulo");
+	date_default_timezone_set("America/Recife");
 
 	include_once("../../../class/pretty_json.php");
 	include_once("../../../class/connection.php");
