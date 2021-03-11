@@ -7,10 +7,15 @@
 	include("../../../../class/pretty_json.php");
 	include("../../../../class/connection.php");
 	include("../../../../class/database.php");
+	include("../../../../class/log.php");
 
 	$data = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
 
 	$db = new Database();
+
+	$user = $db->selectObject("vms_users", "WHERE id = '$data[i]'");
+
+    log_activity($user["id"], "Valor na carteira: $user[wallet] $");
 
 	$store = array();
 
@@ -56,7 +61,7 @@
 	$store["specialEggs"] = array();
 	$store["eggs"] = array();
 
-	$r = $db->select("vms_eggs", "WHERE status = '1'");
+	$r = $db->select("vms_eggs", "WHERE status = '1' ORDER BY orderr ASC");
 	while($e = mysqli_fetch_array($r, MYSQLI_ASSOC)){
 		$egg = $e;
 		$egg["image"] = "http://api.vmonsters.com/assets/eggs/".$egg["image"];

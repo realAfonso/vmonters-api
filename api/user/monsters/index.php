@@ -12,19 +12,8 @@
 
 	$return = array();
 
-	$db = new Database();
-
-	$species = array();
-
-	$r = $db->select("vms_active_monsters", " WHERE user = '".$data["i"]."'");
-	
-	while($s = mysqli_fetch_array($r, MYSQLI_ASSOC)){
-		$s = getMonster($s["id"]);
-		array_push($species, $s);
-	}
-
 	$return["success"] = true;
-	$return["response"] = $species;
+	$return["response"] = getMonsters($data["i"]);
 
 	print_r(pretty_json(json_encode($return)));
 

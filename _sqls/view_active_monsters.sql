@@ -3,6 +3,7 @@ SELECT
     uhs.user as user, 
     uhs.name as name, 
     s.name as specie, 
+    s.id as specieId,
     s.image as image,
     s.description as description,
     s.level as level,

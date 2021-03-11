@@ -10,6 +10,7 @@
 	include("../../../class/user.php");
 	include_once("../../../class/data.php");
 	include("../../../class/date.php");
+	include("../../../class/map.php");
 	include("../../../class/specie.php");
 
 	$data = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
@@ -58,7 +59,8 @@
 
 		$return["response"]["lastRequest"] = $user["lastRequest"];
 
-		$return["response"]["template"] = "http://api.vmonsters.com/assets/templates/20201204193600.jpg";
+        $return["response"]["place"] = $user[map];
+        $return["response"]["template"] = getMapTemplate($user[map]);
 
 		$return["response"]["hightree"] = array();
 

@@ -36,6 +36,8 @@ if ($e == null) {
 
         if ($u["wallet"] >= $e["price"]) {
 
+            log_activity($data[i], "Usuário tem $u[wallet] $ na carteira");
+
             $uhe = array();
             $uhe["user"] = $data["i"];
             $uhe["egg"] = $data["e"];
@@ -43,8 +45,10 @@ if ($e == null) {
             $r = $db->insert("vms_user_has_eggs", $uhe);
 
             if ($r > 0) {
+                log_activity($data[i], "Descontando $e[price] $ da carteira do usuário");
                 $wallet = $u["wallet"] - $e["price"];
                 $o = $db->sql("UPDATE vms_users SET wallet = '$wallet' WHERE id = '" . $data["i"] . "'");
+                log_activity($data[i], "Novo valor na carteira do usuário: $wallet $");
 
                 if ($r == true) {
                     $return["success"] = true;

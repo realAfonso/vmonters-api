@@ -30,10 +30,10 @@
 
 	function getRarity($value)
 	{
-		if($value >= 1 && $value <= 5) return "ULTRARARE";
-		if($value >= 6 && $value <= 20) return "RARE";
-		if($value >= 21 && $value <= 50) return "UNCOMMON";
-		if($value >= 51 && $value <= 100) return "COMMON";
+		if($value == 1) return "ULTRARARE";
+		if($value >= 2 && $value <= 6) return "RARE";
+		if($value >= 7 && $value <= 30) return "UNCOMMON";
+		if($value >= 31 && $value <= 100) return "COMMON";
 	}
 
 ?>

@@ -78,18 +78,73 @@ function endRow()
     echo "</div>";
 }
 
-function inputText($label, $name, $isRequired = false, $placeholder = "", $col = 12)
+function inputText($label, $name, $isRequired = false, $placeholder = "", $col = 12, $value = "", $isEnable = true)
 {
     echo "<div class=\"col-sm-$col\">
             <div class=\"form-group\">
                 <label>$label ";
     if ($isRequired) echo "*";
     echo "</label>
-                <input type=\"text\" name=\"$name\" class=\"form-control\" placeholder=\"$placeholder\" ";
+                <input type=\"text\" name=\"$name\" class=\"form-control\" placeholder=\"$placeholder\" value=\"$value\" ";
+    if ($isEnable == false) echo "disabled ";
     if ($isRequired) echo "required";
     echo ">
             </div>
         </div>";
+}
+
+function inputTextArea($label, $name, $isRequired = false, $placeholder = "", $col = 12, $rows = 3, $value = "")
+{
+    echo "<div class=\"col-sm-$col\">
+            <div class=\"form-group\">
+                <label>$label ";
+    if ($isRequired) echo "*";
+    echo "</label>
+            <textarea class=\"form-control\" name=\"$name\" rows=\"$rows\" placeholder=\"$placeholder\" ";
+    if ($isRequired) echo "required";
+    echo "></textarea>
+            </div>
+        </div>";
+}
+
+function inputNumber($label, $name, $isRequired = false, $placeholder = "", $col = 12, $value)
+{
+    echo "<div class=\"col-sm-$col\">
+            <div class=\"form-group\">
+                <label>$label ";
+    if ($isRequired) echo "*";
+    echo "</label>
+                <input type=\"number\" name=\"$name\" class=\"form-control\" placeholder=\"$placeholder\" value=\"$value\" ";
+    if ($isRequired) echo "required";
+    echo ">
+            </div>
+        </div>";
+}
+
+function inputSelect($label, $name, $items, $itemSelected = "", $onChange = "", $isRequired = false, $col = 12)
+{
+    echo "<div class=\"col-sm-$col\">
+                  <div class=\"form-group\">
+                    <div class=\"form-group\">
+                    <label>$label</label>
+                    <select class=\"form-control\" name=\"$name\" id=\"$name\" onchange=\"$onChange\">";
+
+    foreach ($items as $item)
+    {
+        echo "<option value=\"$item[value]\" ";
+        if($itemSelected == $item[value]) echo "selected";
+        echo ">$item[label]</option>";
+    }
+
+    echo "</select>
+          </div>
+          </div>
+        </div>";
+}
+
+function inputHidden($name, $value)
+{
+    echo "<input type='hidden' name='$name' value='$value'>";
 }
 
 function inputImage($label, $name, $isRequired=true, $col = 12){
@@ -104,13 +159,14 @@ function inputImage($label, $name, $isRequired=true, $col = 12){
             </div>";
 }
 
-function inputRadio($label, $name, $value, $col = 1, $onChecked = "", $isChecked = false){
+function inputRadio($label, $name, $value, $col = 1, $onChecked = "", $isChecked = false, $isEnable = true){
     echo "<div class=\"col-sm-$col\">
             <div class=\"form-group\">
                 <div class=\"form-check\">
                     <input class=\"form-check-input\" type=\"radio\" name=\"$name\" value=\"$value\" onclick=\"$onChecked\" ";
 
-    if($isChecked) echo " checked";
+    if($isChecked) echo " checked ";
+    if(!$isEnable) echo " disabled ";
 
     echo "><label class=\"form-check-label\">$label</label>
                 </div>

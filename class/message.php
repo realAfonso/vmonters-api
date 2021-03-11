@@ -10,11 +10,13 @@
 
 		while($i = mysqli_fetch_array($r, MYSQLI_ASSOC)){
 			$m = array();
-			$m[user] = getUser($i[sender]);
-			$m[message] = filterMessageCharacteres($i[message]);
-			$m[hour] = $i[hour];
+			$m[user] = getUser($i[sender], false);
+			if($m[user] != null) {
+                $m[message] = filterMessageCharacteres($i[message]);
+                $m[hour] = $i[hour];
 
-			array_push($messages, $m);
+                array_push($messages, $m);
+            }
 		}
 
 		return $messages;

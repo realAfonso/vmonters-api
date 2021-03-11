@@ -5,6 +5,10 @@
 
 	include_once("../../class/connection.php");
 	include_once("../../class/database.php");
+	include_once("../../class/user.php");
+	include_once("../../class/crest.php");
+	include_once("../../class/specie.php");
+	include_once("../../class/log.php");
 	include_once("../../class/framework.php");
 
 	if($_SESSION["vms_user"] == null || $_SESSION["vms_user"] == ""){
@@ -123,7 +127,54 @@
             </ul>
           </li>
 
+          <li class="nav-header">USUÁRIOS</li>
+
+            <li class="nav-item">
+                <a href="../dashboard?o=lu" class="nav-link <? if($option == 'lu') { ?>active<? } ?>">
+                    <i class="nav-icon fas fa-users"></i>
+                    <p>
+                        Usuários ativos
+                    </p>
+                </a>
+            </li>
+            <!--<li class="nav-item">
+                <a href="../dashboard?o=bs" class="nav-link <? if($option == 'bs') { ?>active<? } ?>">
+                    <i class="nav-icon fas fa-fist-raised"></i>
+                    <p>
+                        Simulador de batalhas
+                    </p>
+                </a>
+            </li>-->
+
+          <li class="nav-header">LOJA DO TAMER</li>
+
+          <li class="nav-item <? if($option == 'na') { ?>menu-open<? } ?>">
+            <a href="#" class="nav-link <? if($option == 'na') { ?>active<? } ?>">
+              <i class="nav-icon fas fa-user-ninja"></i>
+              <p>
+                Avatares
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="../dashboard?o=na" class="nav-link">
+                  <p>Novo avatar</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
           <li class="nav-header">HISTÓRIA</li>
+
+            <li class="nav-item">
+                <a href="../dashboard?o=eh" class="nav-link <? if($option == 'eh') { ?>active<? } ?>">
+                    <i class="nav-icon fas fa-book"></i>
+                    <p>
+                        Editar história
+                    </p>
+                </a>
+            </li>
 
           <li class="nav-item <? if($option == 'np' || $option == 'ep') { ?>menu-open<? } ?>">
             <a href="#" class="nav-link <? if($option == 'np' || $option == 'ep') { ?>active<? } ?>">
@@ -147,8 +198,30 @@
             </ul>
           </li>
 
-          <li class="nav-item <? if($option == 'nm' || $option == 'em') { ?>menu-open<? } ?>">
-            <a href="#" class="nav-link <? if($option == 'nm' || $option == 'em') { ?>active<? } ?>">
+          <li class="nav-item <? if($option == 'npc' || $option == 'ns') { ?>menu-open<? } ?>">
+            <a href="#" class="nav-link <? if($option == 'npc' || $option == 'ns') { ?>active<? } ?>">
+              <i class="nav-icon fas fa-video"></i>
+              <p>
+                Cenas
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="../dashboard?o=npc" class="nav-link">
+                  <p>Nova palavra-chave</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="../dashboard?o=ns" class="nav-link">
+                  <p>Nova cena</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item <? if($option == 'nm' || $option == 'el' || $option == 'ni') { ?>menu-open<? } ?>">
+            <a href="#" class="nav-link <? if($option == 'nm' || $option == 'el' || $option == 'ni') { ?>active<? } ?>">
               <i class="nav-icon fas fa-map-marked-alt"></i>
               <p>
                 Mapas
@@ -156,40 +229,35 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+                <li class="nav-item">
+                    <a href="../dashboard?o=ni" class="nav-link">
+                        <p>Novo ícone</p>
+                    </a>
+                </li>
               <li class="nav-item">
                 <a href="../dashboard?o=nm" class="nav-link">
                   <p>Novo mapa</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="../dashboard?o=em" class="nav-link">
-                  <p>Editar mapa</p>
+                <a href="../dashboard?o=el" class="nav-link">
+                  <p>Editar locais</p>
                 </a>
               </li>
             </ul>
           </li>
 
-          <li class="nav-item <? if($option == 'nl' || $option == 'el') { ?>menu-open<? } ?>">
-            <a href="#" class="nav-link <? if($option == 'nl' || $option == 'el') { ?>active<? } ?>">
-              <i class="nav-icon fas fa-map-marker-alt"></i>
-              <p>
-                Locais
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="../dashboard?o=nl" class="nav-link">
-                  <p>Novo local</p>
+            <li class="nav-header">CONFIGURAÇÕES</li>
+
+            <li class="nav-item">
+                <a href="../dashboard?o=conf" class="nav-link <? if($option == 'conf') { ?>active<? } ?>">
+                    <i class="nav-icon fas fa-globe-americas"></i>
+                    <p>
+                        Linguagens
+                    </p>
                 </a>
-              </li>
-              <li class="nav-item">
-                <a href="../dashboard?o=el" class="nav-link">
-                  <p>Editar local</p>
-                </a>
-              </li>
-            </ul>
-          </li>
+            </li>
+
         </ul>
       </nav>
     </div>
@@ -209,6 +277,28 @@
       require_once("../modules/_edit_evolution_view.php");
     }else if($option == "nm"){
       require_once("../modules/_new_map_view.php");
+    }else if($option == "el"){
+      require_once("../modules/_edit_place_view.php");
+    }else if($option == "ni"){
+      require_once("../modules/_new_icon_view.php");
+    }else if($option == "np"){
+      require_once("../modules/_new_char_view.php");
+    }else if($option == "na"){
+      require_once("../modules/_new_avatar_view.php");
+    }else if($option == "npc"){
+      require_once("../modules/_new_keyword_view.php");
+    }else if($option == "ns"){
+      require_once("../modules/_new_scene_view.php");
+    }else if($option == "lu"){
+      require_once("../modules/_list_users_view.php");
+    }else if($option == "conf"){
+      require_once("../modules/_languages_view.php");
+    }else if($option == "ub"){
+      require_once("../modules/_buddy_view.php");
+    }else if($option == "sb"){
+      require_once("../modules/_battle_view.php");
+    }else if($option == "eh"){
+      require_once("../modules/_edit_story_view.php");
     }else{
   		require_once("_dashboard.php");
   	}

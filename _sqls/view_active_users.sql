@@ -7,6 +7,7 @@ select
 	u.wallet AS wallet,
 	u.reputation AS reputation,
 	u.house AS house,
+	u.map,
 	u.lastLogin AS lastLogin,
 	u.lastDay AS lastDay,
 	c.id AS crest,

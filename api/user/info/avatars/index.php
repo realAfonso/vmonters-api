@@ -1,19 +1,17 @@
 <?
 
-	ini_set("memory_limit","500M");
+	ini_set("memory_limit","5000M");
 	header('Content-type: application/json');
 
 	include("../../../../class/pretty_json.php");
 	include("../../../../class/connection.php");
 	include("../../../../class/database.php");
-	include("../../../../class/user.php");
 
 	$data = filter_input_array(INPUT_GET, FILTER_SANITIZE_STRING);
 
 	$return = array();
 
 	$db = new Database();
-	$u = new User();
 
 	$r = $db->select("vms_active_avatars", "WHERE user = '".$data["i"]."' ORDER BY id ASC");
 
@@ -28,9 +26,8 @@
 		$return["response"] = array();
 
 		while($a = mysqli_fetch_array($r, MYSQLI_ASSOC)){
-			$avatar = array();
 			$avatar = $a;
-			unset($avatar["user"]);
+			unset($avatar[user]);
 
 			$avatar["image"] = "http://api.vmonsters.com/assets/avatars/".$avatar["image"];
 

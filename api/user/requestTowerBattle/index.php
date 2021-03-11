@@ -142,7 +142,16 @@ if (sizeof($users) == 0) {
         $usero[points] = $usero[points] - 1;
 
         $return[response][bits] = intval($bits * 90 / 100);
-        $return[response][wallet] = intval($currentPoints * 5);
+        $money = intval($currentPoints * 5);
+        $return[response][wallet] = $money;
+
+        $challenger[wallet] = $challenger[wallet] + $money;
+
+        log_activity($challenger[id], "Adicionou $money $ na carteira");
+        $db->update("vms_users", array(
+            "id" => $challenger[id],
+            "wallet" => $challenger[wallet]
+        ));
 
         $filter = array(
             "field" => "tag",

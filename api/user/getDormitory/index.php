@@ -22,14 +22,14 @@
 
 	$people = array();
 
-	$r = $db->select("vms_active_users", "WHERE house = '$userHouse' AND id != '$data[userId]'");
+	$r = $db->select("vms_active_users", "WHERE house = '$userHouse' AND id != '$data[userId]' ORDER BY lastLogin DESC LIMIT 200");
 
 	while($f = mysqli_fetch_array($r, MYSQLI_ASSOC)){
 		$person = array();
 		$person["id"] = $f["id"];
 		$person["name"] = $f["name"];
 		$person["avatar"] = "http://api.vmonsters.com/assets/avatars/".$f["avatar"];
-		$person["buddy"] = getBuddy($f["id"]);
+		$person["buddy"] = getBuddy($f["id"], true);
 		$person["crest"] = getCrest($f["crest"]);
 		$person["isFriend"] = isFriend($data["userId"], $f["id"]);
 		$person["badge"] = getUserBadge($f["vip"], $f["type"]);

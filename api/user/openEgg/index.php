@@ -44,6 +44,34 @@
 				$baby = rand(0, (sizeof($babies)-1));
 				$specie = $babies[$baby];
 
+			}else if($data["e"] == 7){
+
+				$rarity = getRandomRarity();
+
+				$intrainings = array();
+
+				$r = $db->select("vms_species", " WHERE rarity = '$rarity' AND level = 'INTRAINING'");
+				while($item = mysqli_fetch_array($r, MYSQLI_ASSOC)){
+					array_push($intrainings, $item);
+				}
+
+				$intraining = rand(0, (sizeof($intrainings)-1));
+				$specie = $intrainings[$intraining];
+
+			}else if($data["e"] == 8){
+
+				$rarity = getRandomRarity();
+
+				$rookies = array();
+
+				$r = $db->select("vms_species", " WHERE rarity = '$rarity' AND level = 'ROOKIE'");
+				while($item = mysqli_fetch_array($r, MYSQLI_ASSOC)){
+					array_push($rookies, $item);
+				}
+
+				$rookie = rand(0, (sizeof($rookies)-1));
+				$specie = $rookies[$rookie];
+
 			}else{
 				$r = $db->select("vms_species", " WHERE id = '".$egg["specie"]."'");
 				$specie = mysqli_fetch_array($r, MYSQLI_ASSOC);

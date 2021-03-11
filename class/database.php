@@ -63,6 +63,12 @@
 			return $result;
 		}
 
+		public function sqlObject($sql, $showQuery=false) {
+			$r = $this->sql($sql, $showQuery);
+			$o = mysqli_fetch_array($r, MYSQLI_ASSOC);
+			return $o;
+		}
+
 		public function selectObject($table, $cond="", $showQuery=false) {
 			$r = $this->select($table, $cond, $showQuery);
 			$o = mysqli_fetch_array($r, MYSQLI_ASSOC);

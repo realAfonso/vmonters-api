@@ -12,11 +12,26 @@ include("../../class/log.php");
 $dados = array();
 $dados = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
+if ($_FILES['imageIcon']['name'] != "") {
+    $array = explode('.', $_FILES['imageIcon']['name']);
+    $ext = end($array);
+
+    $image = date("YmdHis") . "ICN." . $ext;
+
+    $destino = '../../assets/mapgrounds/' . $image;
+
+    $arquivo_tmp = $_FILES['imageIcon']['tmp_name'];
+
+    move_uploaded_file($arquivo_tmp, $destino);
+
+    $dados["imageIcon"] = $image;
+}
+
 if ($_FILES['imageInteral']['name'] != "") {
     $array = explode('.', $_FILES['imageInteral']['name']);
     $ext = end($array);
 
-    $image = date("YmdHis") . "." . $ext;
+    $image = date("YmdHis") . "INT." . $ext;
 
     $destino = '../../assets/mapgrounds/' . $image;
 
@@ -31,7 +46,7 @@ if ($_FILES['storyInternal']['name'] != "") {
     $array = explode('.', $_FILES['storyInternal']['name']);
     $ext = end($array);
 
-    $image = date("YmdHis") . "." . $ext;
+    $image = date("YmdHis") . "INT." . $ext;
 
     $destino = '../../assets/backgrounds/' . $image;
 
@@ -46,7 +61,7 @@ if ($_FILES['imageDay']['name'] != "") {
     $array = explode('.', $_FILES['imageDay']['name']);
     $ext = end($array);
 
-    $image = date("YmdHis") . "." . $ext;
+    $image = date("YmdHis") . "DAY." . $ext;
 
     $destino = '../../assets/mapgrounds/' . $image;
 
@@ -61,7 +76,7 @@ if ($_FILES['storyDay']['name'] != "") {
     $array = explode('.', $_FILES['storyDay']['name']);
     $ext = end($array);
 
-    $image = date("YmdHis") . "." . $ext;
+    $image = date("YmdHis") . "DAY." . $ext;
 
     $destino = '../../assets/backgrounds/' . $image;
 
@@ -76,7 +91,7 @@ if ($_FILES['imageNight']['name'] != "") {
     $array = explode('.', $_FILES['imageNight']['name']);
     $ext = end($array);
 
-    $image = date("YmdHis") . "." . $ext;
+    $image = date("YmdHis") . "NIGHT." . $ext;
 
     $destino = '../../assets/mapgrounds/' . $image;
 
@@ -91,7 +106,7 @@ if ($_FILES['storyNight']['name'] != "") {
     $array = explode('.', $_FILES['storyNight']['name']);
     $ext = end($array);
 
-    $image = date("YmdHis") . "." . $ext;
+    $image = date("YmdHis") . "NIGHT." . $ext;
 
     $destino = '../../assets/backgrounds/' . $image;
 

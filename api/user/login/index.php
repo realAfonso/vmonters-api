@@ -1,6 +1,6 @@
 <?
 
-	ini_set("memory_limit","500M");
+	ini_set("memory_limit","5000M");
 	header('Content-type: application/json');
 	date_default_timezone_set("America/Recife");
 
@@ -9,6 +9,7 @@
 	include_once("../../../class/database.php");
 	include_once("../../../class/user.php");
 	include_once("../../../class/date.php");
+	include_once("../../../class/map.php");
 	include_once("../../../class/specie.php");
 	include_once("../../../class/data.php");
 	include_once("../../../class/log.php");
@@ -30,7 +31,6 @@
 		$return["message"] = "Invalid email or password";
 		$return["response"] = null;
 	}else{
-
 		$return["success"] = true;
 		$return["response"] = array();
 
@@ -62,7 +62,7 @@
 
 		if(isToday($user["lastLogin"])){
 			$return["response"]["bonus"] = null;
-			log_activity($user["id"], "Não ganhou bonus diário");
+			//log_activity($user["id"], "Não ganhou bonus diário");
 		}else{
 			if(isYesterday($user["lastLogin"])){
 				$log = array();
@@ -162,13 +162,14 @@
 
 			if(sizeof($bonus) == 0){
 				$bonus = null;
-				log_activity($user["id"], "Não ganhou bonus diário");
+				//log_activity($user["id"], "Não ganhou bonus diário");
 			}
 
 			$return["response"]["bonus"] = $bonus;
 		}
 
-		$return["response"]["template"] = "http://api.vmonsters.com/assets/templates/20201204193600.jpg";
+		$return["response"]["place"] = $user[map];
+		$return["response"]["template"] = getMapTemplate($user[map]);
 
 		$return["response"]["hightree"] = array();
 
@@ -190,6 +191,9 @@
 		);
 
 		$return["response"]["towerOfValor"] = getTowerOfValor($user[id]);
+
+		$vnc = $return[response][wallet];
+        log_activity($user["id"], "Valor na carteira: $vnc $");
 	}
 
 

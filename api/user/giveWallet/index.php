@@ -23,9 +23,9 @@ if ($user == null) {
     $return["success"] = false;
     $return["message"] = "Usuário não existe";
 } else {
-    log_activity($data[userId], "Adicionou $data[wallet] $ na carteira");
-    $user[wallet] = $user[wallet] + $data[wallet];
-    $r = $db->update("vms_users", $user);
+    //log_activity($data[userId], "Adicionou $data[wallet] $ na carteira");
+    $user[wallet] = $user[wallet];
+    //$r = $db->update("vms_users", $user);
 }
 
 $return["success"] = true;

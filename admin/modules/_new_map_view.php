@@ -35,7 +35,11 @@ startContainer();
                     startRow();
                         inputRadio("Área externa", "type", 1, 1, "isExternal()", true);
                         inputRadio("Área interna", "type", 2, 1, "isInternal()");
-                        inputRadio("Sala interna", "type", 3, 1, "isInternal()");
+                        inputRadio("Sala interna", "type", 3, 1, "isInternalRoom()");
+                    endRow();
+
+                    startRow("iconMapInternal");
+                        inputImage("Icone do mapa (200x200)", "imageIcon", false);
                     endRow();
 
                     startRow("backgroundMapInternal");
@@ -94,6 +98,10 @@ endContainer();
         backgroundStoryExternalNight.style.height = 'auto';
         backgroundStoryExternalNight.style.width = 'auto';
 
+        iconMapInternal.style.visibility = 'hidden';
+        iconMapInternal.style.height = '0';
+        iconMapInternal.style.width = '0';
+
         backgroundMapInternal.style.visibility = 'hidden';
         backgroundMapInternal.style.height = '0';
         backgroundMapInternal.style.width = '0';
@@ -119,6 +127,40 @@ endContainer();
         backgroundStoryExternalNight.style.visibility = 'hidden';
         backgroundStoryExternalNight.style.height = '0';
         backgroundStoryExternalNight.style.width = '0';
+
+        iconMapInternal.style.visibility = 'visible';
+        iconMapInternal.style.height = 'auto';
+        iconMapInternal.style.width = 'auto';
+
+        backgroundMapInternal.style.visibility = 'visible';
+        backgroundMapInternal.style.height = 'auto';
+        backgroundMapInternal.style.width = 'auto';
+
+        backgroundStoryInternal.style.visibility = 'visible';
+        backgroundStoryInternal.style.height = 'auto';
+        backgroundStoryInternal.style.width = 'auto';
+    }
+
+    function isInternalRoom(){
+        backgroundMapExternalDay.style.visibility = 'hidden';
+        backgroundMapExternalDay.style.height = '0';
+        backgroundMapExternalDay.style.width = '0';
+
+        backgroundMapExternalNight.style.visibility = 'hidden';
+        backgroundMapExternalNight.style.height = '0';
+        backgroundMapExternalNight.style.width = '0';
+
+        backgroundStoryExternalDay.style.visibility = 'hidden';
+        backgroundStoryExternalDay.style.height = '0';
+        backgroundStoryExternalDay.style.width = '0';
+
+        backgroundStoryExternalNight.style.visibility = 'hidden';
+        backgroundStoryExternalNight.style.height = '0';
+        backgroundStoryExternalNight.style.width = '0';
+
+        iconMapInternal.style.visibility = 'hidden';
+        iconMapInternal.style.height = '0';
+        iconMapInternal.style.width = '0';
 
         backgroundMapInternal.style.visibility = 'visible';
         backgroundMapInternal.style.height = 'auto';

@@ -1,5 +1,21 @@
 <?
 
+function isDay()
+{
+    $night1 = strtotime(date('d-m-Y') . '00:00');
+    $night2 = strtotime(date('d-m-Y') . '06:00');
+    $night3 = strtotime(date('d-m-Y') . '19:00');
+    $night4 = strtotime(date('d-m-Y') . '23:59');
+
+    $now = time();
+
+    if (($now >= $night3 && $now <= $night4) || ($now >= $night1 && $now <= $night2)) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
 function getBeforeHourForTime($hours, $time)
 {
     return strtotime('-' . $hours . ' hours', $time);
@@ -18,6 +34,10 @@ function getBeforeHour($hours)
 function getAfterHour($hours)
 {
     return strtotime('+' . $hours . ' hours', time());
+}
+
+function getDateToTime($date){
+    return strtotime($date);
 }
 
 function getToday()

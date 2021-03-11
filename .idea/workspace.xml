@@ -2,63 +2,59 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2177bcd9-cce9-41f9-8fc7-a24d7d4ef7a1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vmonsters-api.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin/modules/_new_map_submit.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/admin/modules/_new_map_view.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/class/framework.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_sqls/view_active_avatars.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/_sqls/view_user_has_keywords.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/modules/_battle_view.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/modules/_buddy_view.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/modules/_change_user_vip.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/modules/_edit_place_submit.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/modules/_edit_place_view.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/modules/_edit_story_submit.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/modules/_edit_story_view.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/modules/_languages_submit.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/modules/_languages_view.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/modules/_list_users_view.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/modules/_new_avatar_submit.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/modules/_new_avatar_view.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/modules/_new_char_submit.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/modules/_new_char_view.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/modules/_new_icon_submit.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/modules/_new_icon_view.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/modules/_new_keyword_submit.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/modules/_new_keyword_view.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/modules/_new_scene_submit.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/admin/modules/_new_scene_view.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api/map/getKeywords/index.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api/map/getMap/index.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/api/map/getStory/index.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/avatars/add.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/chars/20201218165142ICN.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/class/map.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/_sqls/view_active_logs.sql" beforeDir="false" afterPath="$PROJECT_DIR$/_sqls/view_active_logs.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_sqls/view_active_monsters.sql" beforeDir="false" afterPath="$PROJECT_DIR$/_sqls/view_active_monsters.sql" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/_sqls/view_active_users.sql" beforeDir="false" afterPath="$PROJECT_DIR$/_sqls/view_active_users.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/friends/digiconnection/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/friends/digiconnection/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/dashboard/_dashboard.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/dashboard/_dashboard.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/dashboard/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/dashboard/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/modules/_new_map_submit.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/modules/_new_map_submit.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/admin/modules/_new_map_view.php" beforeDir="false" afterPath="$PROJECT_DIR$/admin/modules/_new_map_view.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/prelogin/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/prelogin/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/store/getProducts/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/store/getProducts/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/store/purchaseData/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/store/purchaseData/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/store/purchaseAvatar/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/store/purchaseAvatar/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/store/purchaseEgg/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/store/purchaseEgg/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/user/buddy/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/user/buddy/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/user/friends/list/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/user/friends/list/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/user/friends/new/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/user/friends/new/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/user/getDatas/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/user/getDatas/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/user/getUserData/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/user/getUserData/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/store/v2/getProducts/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/store/v2/getProducts/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/user/getDormitory/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/user/getDormitory/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/user/giveWallet/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/user/giveWallet/index.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/user/info/avatars/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/user/info/avatars/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/user/info/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/user/info/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/user/login/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/user/login/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/user/makeBuddy/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/user/makeBuddy/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/user/monsters/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/user/monsters/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/user/openEgg/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/user/openEgg/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/crests/10.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/crests/10.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/crests/11.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/crests/11.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/crests/2.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/crests/2.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/crests/3.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/crests/3.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/crests/4.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/crests/4.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/crests/5.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/crests/5.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/crests/6.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/crests/6.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/crests/7.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/crests/7.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/crests/8.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/crests/8.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/crests/9.png" beforeDir="false" afterPath="$PROJECT_DIR$/assets/crests/9.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/species/1.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/species/10.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/species/11.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/species/12.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/species/13.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/species/14.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/species/15.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/species/2.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/species/3.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/species/4.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/species/5.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/species/6.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/species/7.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/species/8.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/species/9.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/species/COOMON.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/species/MEIROMON.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/species/gotsuhalloween2020.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/species/pumpkinmonddlm.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/class/data.php" beforeDir="false" afterPath="$PROJECT_DIR$/class/data.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/user/requestTowerBattle/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/api/user/requestTowerBattle/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/class/database.php" beforeDir="false" afterPath="$PROJECT_DIR$/class/database.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/class/date.php" beforeDir="false" afterPath="$PROJECT_DIR$/class/date.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/class/friends.php" beforeDir="false" afterPath="$PROJECT_DIR$/class/friends.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/class/push.php" beforeDir="false" afterPath="$PROJECT_DIR$/class/push.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/class/framework.php" beforeDir="false" afterPath="$PROJECT_DIR$/class/framework.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/class/message.php" beforeDir="false" afterPath="$PROJECT_DIR$/class/message.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/class/specie.php" beforeDir="false" afterPath="$PROJECT_DIR$/class/specie.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/class/user.php" beforeDir="false" afterPath="$PROJECT_DIR$/class/user.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/modules/_utilities.php" beforeDir="false" afterPath="$PROJECT_DIR$/modules/_utilities.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/test.php" beforeDir="false" afterPath="$PROJECT_DIR$/test.php" afterDir="false" />
@@ -106,7 +102,18 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1608051719331</updated>
-      <workItem from="1608051722313" duration="18864000" />
+      <workItem from="1608051722313" duration="22247000" />
+      <workItem from="1608216082354" duration="24589000" />
+      <workItem from="1608375816330" duration="8497000" />
+      <workItem from="1608566430197" duration="3700000" />
+      <workItem from="1608644738591" duration="17570000" />
+      <workItem from="1608908258324" duration="3441000" />
+      <workItem from="1609175037518" duration="2433000" />
+      <workItem from="1609870550122" duration="687000" />
+      <workItem from="1610197281758" duration="2835000" />
+      <workItem from="1611006974391" duration="1309000" />
+      <workItem from="1613484690946" duration="6468000" />
+      <workItem from="1615382416405" duration="5612000" />
     </task>
     <servers />
   </component>
@@ -123,6 +130,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />

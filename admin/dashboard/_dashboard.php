@@ -121,9 +121,14 @@
                 <? 
 
                   if($data[s] != ""){
-                    $r = $db->select("vms_active_logs", "WHERE name LIKE '%$data[s]%' OR action LIKE '%$data[s]%'");
+                      $terms = explode(" && ", $data[s]);
+                      if(sizeof($terms) > 1){
+                          $r = $db->select("vms_active_logs", "WHERE name LIKE '%$terms[0]%' AND action LIKE '%$terms[1]%' LIMIT 200");
+                      }else{
+                          $r = $db->select("vms_active_logs", "WHERE name LIKE '%$data[s]%' OR action LIKE '%$data[s]%' LIMIT 200");
+                      }
                   }else{
-                    $r = $db->select("vms_active_logs");
+                    $r = $db->select("vms_active_logs", "LIMIT 100");
                   }
                   
                   while($l = mysqli_fetch_array($r, MYSQLI_ASSOC)){ ?>

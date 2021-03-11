@@ -10,4 +10,4 @@ FROM
 WHERE 
 	l.user = u.id AND 
 	a.id = u.avatar 
-ORDER BY l.id DESC LIMIT 100
+ORDER BY l.id DESC

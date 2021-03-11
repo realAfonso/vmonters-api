@@ -12,10 +12,16 @@ include("class/crest.php");
 
 $db = new Database();
 
-$towerFloor = $db->selectObject("vms_user_has_valor", "WHERE user = '18'");
+$night1 = strtotime(date('d-m-Y') . '00:00');
+$night2 = strtotime(date('d-m-Y') . '06:00');
+$night3 = strtotime(date('d-m-Y') . '19:00');
+$night4 = strtotime(date('d-m-Y') . '23:59');
 
-$hora = time();
-$afterHour = getAfterHourForTime(2, $hora);
+$now = time();
 
-echo "$afterHour<br>$hora";
+if (($now >= $night3 && $now <= $night4) || ($now >= $night1 && $now <= $night2)) {
+    echo "noite";
+} else {
+    echo "dia";
+}
 

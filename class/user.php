@@ -2,7 +2,7 @@
 include_once("connection.php");
 include_once("database.php");
 
-function getUser($id)
+function getUser($id, $withBuddy = true)
 {
     $db = new Database();
 
@@ -18,7 +18,7 @@ function getUser($id)
     $return["wallet"] = $user["wallet"];
     $return["reputation"] = $user["reputation"];
     $return["house"] = $user["house"];
-    $return["buddy"] = getBuddy($user["id"]);
+    if($withBuddy == true) $return["buddy"] = getBuddy($user["id"]);
     $return["crest"] = getCrest($user["crest"]);
 
     $return[buddy] = assertHouseyStats($return[buddy], $user["house"]);
@@ -82,6 +82,12 @@ function getTowerOfValor($userId)
     if ($towerFloor != null) {
         if ($towerFloor[lastTickets] <= getBeforeHour(2)) {
             $towerFloor[battleTickets] = 10;
+
+            $vip = getUserVip($userId);
+            if ($vip >= 4) $towerFloor[battleTickets] = $towerFloor[battleTickets] + 6;
+            else if ($vip == 3) $towerFloor[battleTickets] = $towerFloor[battleTickets] + 4;
+            else if ($vip == 2) $towerFloor[battleTickets] = $towerFloor[battleTickets] + 2;
+
             $towerFloor[lastTickets] = time();
             $db->update("vms_user_has_valor", $towerFloor);
         }
